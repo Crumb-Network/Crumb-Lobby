@@ -1,0 +1,19 @@
+name: Crumb-Lobby
+version: '1.0.0'
+main: me.kalbskinder.crumbLobby.CrumbLobby
+api-version: '1.21'
+description: ""
+author: "Kalbskinder"
+
+commands:
+  setspawn:
+    description: "Set a server spawn"
+    usage: "/setspawn"
+  spawn:
+    description: "Teleports you to spawn"
+    usage: "/spawn"
+
+permissions:
+  crumblobby.admin:
+    description: "Provides access to all plugin commands"
+    default: op

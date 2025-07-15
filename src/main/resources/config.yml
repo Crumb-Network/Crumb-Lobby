@@ -1,0 +1,10 @@
+messages:
+
+game-rules:
+  dropItems: false # This game rule will be ignored for admins
+  pvp: false
+  fallDamage: false
+  fireDamage: false
+  suffocate: false
+  drown: false
+  hunger: false
