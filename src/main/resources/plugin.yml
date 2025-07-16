@@ -6,6 +6,9 @@ description: ""
 author: "Kalbskinder"
 
 commands:
+  clobby:
+    description: "Main command"
+    usage: "/clobby <args>"
   setspawn:
     description: "Set a server spawn"
     usage: "/setspawn"

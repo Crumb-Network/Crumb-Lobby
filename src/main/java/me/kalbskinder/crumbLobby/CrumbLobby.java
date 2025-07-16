@@ -4,6 +4,9 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import me.kalbskinder.crumbLobby.commands.BaseCommand;
 import me.kalbskinder.crumbLobby.commands.SetSpawnCommand;
 import me.kalbskinder.crumbLobby.commands.SpawnCommand;
+import me.kalbskinder.crumbLobby.listeners.LobbyEvents;
+import me.kalbskinder.crumbLobby.listeners.PlayerJoinLeaveEvents;
+import me.kalbskinder.crumbLobby.utils.ItemActionHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +34,9 @@ public final class CrumbLobby extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new LobbyEvents(), this);
+        pm.registerEvents(new PlayerJoinLeaveEvents(), this);
+        pm.registerEvents(new ItemActionHandler(), this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.kalbskinder.crumbLobby.utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-public class ItemActionHandler {
+public class ItemActionHandler implements Listener {
     private static final Logger logger = Logger.getLogger("Crumb-Lobby");
     private static final Map<String, Consumer<Player>> actions = new HashMap<>();
 

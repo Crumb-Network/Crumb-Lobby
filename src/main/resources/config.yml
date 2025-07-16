@@ -1,4 +1,21 @@
 messages:
+  # Placeholders:
+  # %player_display_name% - The players display name
+  # %player_username% - The players username
+  welcome-message:
+    enabled: true
+    content:
+      - "<gray><st>                                                           <reset>"
+      - ""
+      - "      <bold><green>Welcome back %player_display_name%!"
+      - ""
+      - "<gray><st>                                                           <reset>"
+  join-message:
+    enabled: true
+    content: "<dark_gray>[<green>+<dark_gray>] <gray>%player_username% joined!"
+  leave-message:
+    enabled: true
+    content: "<dark_gray>[<red>-<dark_gray>] <gray>%player_username% left!"
 
 game-rules:
   dropItems: false # This game rule will be ignored for admins

@@ -22,15 +22,15 @@ public class BaseCommand {
     );
 
 
-    LiteralArgumentBuilder<CommandSourceStack> baseCommand = Commands.literal("cl")
+    LiteralArgumentBuilder<CommandSourceStack> baseCommand = Commands.literal("clobby")
             .requires(source -> source.getExecutor().hasPermission("crumblobby.admin"))
             .executes(ctx -> {
                 // List of commands
                 CommandSender sender =  ctx.getSource().getSender();
                 if (sender instanceof Player player) {
                     List.of(
-                            "<gold>/cl <gray>- Shows this message",
-                            "<gold>/cl gamerules <yellow>[gamerule] [true/false] <gray>- Edit gamerules",
+                            "<gold>/clobby <gray>- Shows this message",
+                            "<gold>/clobby gamerules <yellow>[gamerule] [true/false] <gray>- Edit gamerules",
                             "<gold>/setspawn <gray>- Set the spawn location",
                             "<gold>/spawn <gray>- Teleport to the spawn location"
                     ).forEach(line -> {
