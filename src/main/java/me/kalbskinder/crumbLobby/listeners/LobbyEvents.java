@@ -5,21 +5,37 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class LobbyEvents implements Listener {
-    private final FileConfiguration config = CrumbLobby.getInstance().getConfig();
-    boolean itemDrops = config.getBoolean("game-rules.dropItems");
-    boolean pvp = config.getBoolean("game-rules.pvp");
-    boolean hunger = config.getBoolean("game-rules.hunger");
+    private static final FileConfiguration config = CrumbLobby.getInstance().getConfig();
 
-    boolean fallDamage = config.getBoolean("game-rules.fallDamage");
-    boolean fireDamage = config.getBoolean("game-rules.fireDamage");
-    boolean suffocate = config.getBoolean("game-rules.suffocate");
-    boolean drown = config.getBoolean("game-rules.drown");
+    // GameRules
+    private static boolean itemDrops;
+    private static boolean pvp;
+    private static boolean hunger;
+    private static boolean fallDamage;
+    private static boolean fireDamage;
+    private static boolean suffocate;
+    private static boolean drown;
+    private static boolean blockBreak;
+
+    public static void reloadGameRules() {
+        itemDrops = config.getBoolean("game-rules.itemDrops");
+        pvp = config.getBoolean("game-rules.pvp");
+        hunger = config.getBoolean("game-rules.hunger");
+        fallDamage = config.getBoolean("game-rules.fallDamage");
+        fireDamage = config.getBoolean("game-rules.fireDamage");
+        suffocate = config.getBoolean("game-rules.suffocate");
+        drown = config.getBoolean("game-rules.drown");
+        blockBreak = config.getBoolean("game-rules.blockBreak");
+    }
+
+
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
@@ -79,4 +95,10 @@ public class LobbyEvents implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerBlockBreak(BlockBreakEvent event) {
+        if (!blockBreak) {
+            event.setCancelled(true);
+        }
+    }
 }

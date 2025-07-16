@@ -7,7 +7,8 @@ messages:
     content:
       - "<gray><st>                                                           <reset>"
       - ""
-      - "      <bold><green>Welcome back %player_display_name%!"
+      - "          <bold><aqua>Your Minecraft Server"
+      - "          <green>Welcome back %player_display_name%!"
       - ""
       - "<gray><st>                                                           <reset>"
   join-message:
@@ -25,3 +26,4 @@ game-rules:
   suffocate: false
   drown: false
   hunger: false
+  blockBreak: false

@@ -59,6 +59,8 @@ public final class CrumbLobby extends JavaPlugin {
             getLogger().severe("Failed to connect to the database! " + ex.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        LobbyEvents.reloadGameRules();
     }
 
     @Override

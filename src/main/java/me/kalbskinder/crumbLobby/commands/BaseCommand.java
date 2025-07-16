@@ -7,6 +7,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import me.kalbskinder.crumbLobby.CrumbLobby;
+import me.kalbskinder.crumbLobby.listeners.LobbyEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class BaseCommand {
     private final MiniMessage mm = MiniMessage.miniMessage();
 
     List<String> gameruleList = List.of(
-            "dropItems", "pvp", "fallDamage", "fireDamage", "suffocate", "drown", "hunger"
+            "dropItems", "pvp", "fallDamage", "fireDamage", "suffocate", "drown", "hunger", "blockBreak"
     );
 
 
@@ -59,6 +60,7 @@ public class BaseCommand {
                                         // Update config
                                         plugin.getConfig().set("game-rules." + rule, value);
                                         plugin.saveConfig();
+                                        LobbyEvents.reloadGameRules(); // Reload game rules for events
 
                                         sender.sendMessage(mm.deserialize("<green>Updated gamerule '" + rule + "' to " + value));
                                         return 0;
