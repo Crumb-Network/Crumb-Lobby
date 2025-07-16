@@ -5,11 +5,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+
+import javax.swing.text.html.HTMLDocument;
 
 public class LobbyEvents implements Listener {
     private static final FileConfiguration config = CrumbLobby.getInstance().getConfig();
@@ -23,6 +28,8 @@ public class LobbyEvents implements Listener {
     private static boolean suffocate;
     private static boolean drown;
     private static boolean blockBreak;
+    private static boolean blockPlace;
+    private static boolean blockInteract;
 
     public static void reloadGameRules() {
         itemDrops = config.getBoolean("game-rules.itemDrops");
@@ -33,6 +40,8 @@ public class LobbyEvents implements Listener {
         suffocate = config.getBoolean("game-rules.suffocate");
         drown = config.getBoolean("game-rules.drown");
         blockBreak = config.getBoolean("game-rules.blockBreak");
+        blockPlace = config.getBoolean("game-rules.blockPlace");
+        blockInteract = config.getBoolean("game-rules.blockInteract");
     }
 
 
@@ -97,7 +106,27 @@ public class LobbyEvents implements Listener {
 
     @EventHandler
     public void onPlayerBlockBreak(BlockBreakEvent event) {
+        if (event.getPlayer().hasPermission("crumblobby.admin")) return;
         if (!blockBreak) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getPlayer().hasPermission("crumblobby.admin")) return;
+        Action a = event.getAction();
+        if (a.equals(Action.PHYSICAL) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (!blockInteract) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerPlaceBlock(BlockPlaceEvent event) {
+        if (event.getPlayer().hasPermission("crumblobby.admin")) return;
+        if (!blockPlace) {
             event.setCancelled(true);
         }
     }

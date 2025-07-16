@@ -18,8 +18,10 @@ messages:
     enabled: true
     content: "<dark_gray>[<red>-<dark_gray>] <gray>%player_username% left!"
 
+# dropItems, blockBreak, blockPlace and blockInteract will be ignored for player
+# with the permission "crumblobby.admin (default: op)"
 game-rules:
-  dropItems: false # This game rule will be ignored for admins
+  dropItems: false
   pvp: false
   fallDamage: false
   fireDamage: false
@@ -27,3 +29,5 @@ game-rules:
   drown: false
   hunger: false
   blockBreak: false
+  blockPlace: false
+  blockInteract: false

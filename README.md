@@ -12,15 +12,17 @@ You can also use `/spawn` to teleport to the set location
 
 Use the command `/clobby <gamerule> <value>` to edit game rules.
 
-| Gamerule     | Description                                           | Default |
-|--------------|-------------------------------------------------------|---------|
-| `dropItems`  | Whether a player can drop items                      | `false` |
-| `pvp`        | If PvP should be enabled                             | `false` |
-| `fallDamage` | If a player should take fall damage                  | `false` |
-| `fireDamage` | If a player should take fire damage                  | `false` |
-| `suffocate`  | If a player should take suffocation damage           | `false` |
-| `drown`      | If a player can take damage by drowning              | `false` |
-| `hunger`     | If a player should lose hunger                       | `false` |
-| `blockBreak` | If players should be able to break blocks            | `false` |
+| Gamerule        | Description                                       | Default  |
+|-----------------|---------------------------------------------------|----------|
+| `dropItems`     | Whether a player can drop items                   | `false`  |
+| `pvp`           | If PvP should be enabled                          | `false`  |
+| `fallDamage`    | If a player should take fall damage               | `false`  |
+| `fireDamage`    | If a player should take fire damage               | `false`  |
+| `suffocate`     | If a player should take suffocation damage        | `false`  |
+| `drown`         | If a player can take damage by drowning           | `false`  |
+| `hunger`        | If a player should lose hunger                    | `false`  |
+| `blockBreak`    | If players should be able to break blocks         | `false`  |
+| `blockPlace`    | If players should be able to place blocks         | `false`  |
+| `blockInteract` | If players should be able to interact with blocks | `false`  |
 
 ---

@@ -19,7 +19,7 @@ public class BaseCommand {
     private final MiniMessage mm = MiniMessage.miniMessage();
 
     List<String> gameruleList = List.of(
-            "dropItems", "pvp", "fallDamage", "fireDamage", "suffocate", "drown", "hunger", "blockBreak"
+            "dropItems", "pvp", "fallDamage", "fireDamage", "suffocate", "drown", "hunger", "blockBreak", "blockPlace", "blockInteract"
     );
 
 
