@@ -53,12 +53,19 @@ public class PlayerJoinLeaveEvents implements Listener {
         try {
             Database database = new Database(plugin.getDataFolder().getAbsolutePath() + "/lobbyDatabase.db");
             Query query = new Query(database.getConnection());
-            Location location = LocationHelper.stringToLocation(query.getSpawn());
+            String locationString = query.getSpawn();
+            System.out.println(locationString);
+            Location location = LocationHelper.stringToLocation(locationString);
+            if (location != null) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<red>Unable to teleport player to spawn because location is null! You can set a spawn location with the command <yellow>/setspawn<red>."));
+            }
             player.teleport(location);
         } catch (SQLException ex) {
             player.sendMessage(mm.deserialize("<red>Failed to teleport you to spawn!"));
             ex.printStackTrace();
         }
+
+        // TODO: Fireworks!
     }
 
     @EventHandler

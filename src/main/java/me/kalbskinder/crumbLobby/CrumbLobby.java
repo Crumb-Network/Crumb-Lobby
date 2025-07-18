@@ -6,6 +6,7 @@ import me.kalbskinder.crumbLobby.commands.SetSpawnCommand;
 import me.kalbskinder.crumbLobby.commands.SpawnCommand;
 import me.kalbskinder.crumbLobby.listeners.LobbyEvents;
 import me.kalbskinder.crumbLobby.listeners.PlayerJoinLeaveEvents;
+import me.kalbskinder.crumbLobby.systems.LobbyItems;
 import me.kalbskinder.crumbLobby.utils.ItemActionHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -37,6 +38,7 @@ public final class CrumbLobby extends JavaPlugin {
         pm.registerEvents(new LobbyEvents(), this);
         pm.registerEvents(new PlayerJoinLeaveEvents(), this);
         pm.registerEvents(new ItemActionHandler(), this);
+        pm.registerEvents(new LobbyItems(), this);
     }
 
     @Override

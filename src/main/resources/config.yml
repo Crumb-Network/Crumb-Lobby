@@ -8,7 +8,7 @@ messages:
       - "<gray><st>                                                           <reset>"
       - ""
       - "          <bold><aqua>Your Minecraft Server"
-      - "          <green>Welcome back %player_display_name%!"
+      - "       <green>Welcome back %player_display_name%!"
       - ""
       - "<gray><st>                                                           <reset>"
   join-message:
@@ -17,6 +17,20 @@ messages:
   leave-message:
     enabled: true
     content: "<dark_gray>[<red>-<dark_gray>] <gray>%player_username% left!"
+
+items:
+  teleport-bow:
+    enabled: true
+    slot: 0
+  pvp-sword:
+    enabled: true
+    slot: 4
+  server-info:
+    enabled: true
+    slot: 8
+    lore:
+      - "Line 1"
+      - "Line 2"
 
 # dropItems, blockBreak, blockPlace and blockInteract will be ignored for player
 # with the permission "crumblobby.admin (default: op)"

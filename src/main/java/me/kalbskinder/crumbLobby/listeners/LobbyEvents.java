@@ -15,9 +15,26 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import javax.swing.text.html.HTMLDocument;
+import java.util.List;
 
 public class LobbyEvents implements Listener {
     private static final FileConfiguration config = CrumbLobby.getInstance().getConfig();
+    private static final List<EntityDamageEvent.DamageCause> defaultCauses = List.of(
+            EntityDamageEvent.DamageCause.CAMPFIRE,
+            EntityDamageEvent.DamageCause.FREEZE,
+            EntityDamageEvent.DamageCause.PROJECTILE,
+            EntityDamageEvent.DamageCause.LIGHTNING,
+            EntityDamageEvent.DamageCause.STARVATION,
+            EntityDamageEvent.DamageCause.VOID,
+            EntityDamageEvent.DamageCause.CRAMMING,
+            EntityDamageEvent.DamageCause.FREEZE,
+            EntityDamageEvent.DamageCause.HOT_FLOOR,
+            EntityDamageEvent.DamageCause.ENTITY_EXPLOSION,
+            EntityDamageEvent.DamageCause.MAGIC,
+            EntityDamageEvent.DamageCause.POISON,
+            EntityDamageEvent.DamageCause.WITHER,
+            EntityDamageEvent.DamageCause.FLY_INTO_WALL
+    );
 
     // GameRules
     private static boolean itemDrops;
@@ -78,6 +95,11 @@ public class LobbyEvents implements Listener {
     @EventHandler
     public void onPlayerTakeDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
+            if (defaultCauses.contains(event.getCause())) {
+                event.setCancelled(true);
+                return;
+            }
+
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 if (!fallDamage) {
                     event.setCancelled(true);
