@@ -8,7 +8,7 @@ messages:
       - "<gray><st>                                                           <reset>"
       - ""
       - "          <bold><aqua>Your Minecraft Server"
-      - "       <green>Welcome back %player_display_name%!"
+      - "           <green>Welcome %player_display_name%!"
       - ""
       - "<gray><st>                                                           <reset>"
   join-message:
@@ -20,12 +20,27 @@ messages:
 
 items:
   teleport-bow:
+    name: "<green>Teleport Bow"
     enabled: true
     slot: 0
   pvp-sword:
+    name: "<dark_purple>PVP Sword"
     enabled: true
     slot: 4
+    messages:
+      # %time% - The time until the action will be executed
+      prefix: "<white>[<aqua>PVP<white>] "
+      enabling: "<aqua>Activating in <white>%time%s"
+      enabled: "<green>Activated!"
+      disabling: "<aqua>Will be deactivated in <white>%time%s"
+      disabled: "<red>Deactivated!"
+  player-visibility:
+    name-shown: "<green>Hide Players"
+    name-hidden: "<gray>Show Players"
+    enabled: true
+    slot: 7
   server-info:
+    name: "<aqua>Server Info <gray>(Hover)"
     enabled: true
     slot: 8
     lore:

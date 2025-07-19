@@ -25,5 +25,4 @@ public class LocationHelper {
         float pitch = Float.parseFloat(parts[5]);
         return new Location(world, x, y, z, yaw, pitch);
     }
-
 }

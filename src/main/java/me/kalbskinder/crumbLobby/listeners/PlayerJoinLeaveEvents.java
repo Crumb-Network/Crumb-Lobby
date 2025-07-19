@@ -3,6 +3,8 @@ package me.kalbskinder.crumbLobby.listeners;
 import me.kalbskinder.crumbLobby.CrumbLobby;
 import me.kalbskinder.crumbLobby.database.Database;
 import me.kalbskinder.crumbLobby.database.Query;
+import me.kalbskinder.crumbLobby.systems.PVPSword;
+import me.kalbskinder.crumbLobby.systems.PlayerVisibility;
 import me.kalbskinder.crumbLobby.utils.LocationHelper;
 import me.kalbskinder.crumbLobby.utils.TextFormatter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -36,11 +38,17 @@ public class PlayerJoinLeaveEvents implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        player.getInventory().setHeldItemSlot(2);
+        PlayerVisibility.resetVisibility(player);
 
         Map<String, String> placeholders = Map.of(
                 "player_display_name", mm.serialize(player.displayName()),
                 "player_username", player.getName()
         );
+
+        if (PVPSword.isInPvp(player)) {
+            PVPSword.getPVPList().remove(player.getUniqueId());
+        }
 
         if (welcomeMessageEnabled) {
             welcomeMessage.forEach(line -> player.sendMessage(textFormatter.formatString(line, placeholders)));
@@ -54,11 +62,11 @@ public class PlayerJoinLeaveEvents implements Listener {
             Database database = new Database(plugin.getDataFolder().getAbsolutePath() + "/lobbyDatabase.db");
             Query query = new Query(database.getConnection());
             String locationString = query.getSpawn();
-            System.out.println(locationString);
-            Location location = LocationHelper.stringToLocation(locationString);
-            if (location != null) {
+            if (locationString == null) {
                 player.sendMessage(MiniMessage.miniMessage().deserialize("<red>Unable to teleport player to spawn because location is null! You can set a spawn location with the command <yellow>/setspawn<red>."));
+                return;
             }
+            Location location = LocationHelper.stringToLocation(locationString);
             player.teleport(location);
         } catch (SQLException ex) {
             player.sendMessage(mm.deserialize("<red>Failed to teleport you to spawn!"));

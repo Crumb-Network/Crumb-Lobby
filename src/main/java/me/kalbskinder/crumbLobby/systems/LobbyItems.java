@@ -1,6 +1,7 @@
 package me.kalbskinder.crumbLobby.systems;
 
 import me.kalbskinder.crumbLobby.CrumbLobby;
+import me.kalbskinder.crumbLobby.utils.ItemActionHandler;
 import me.kalbskinder.crumbLobby.utils.ItemMaker;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.NamespacedKey;
@@ -21,22 +22,51 @@ import java.util.Collections;
 
 public class LobbyItems implements Listener {
     private static final FileConfiguration config = CrumbLobby.getInstance().getConfig();
-    private static final ItemStack teleportBow = ItemMaker.createItem("minecraft:bow", 1, "<green>Teleport Bow", Collections.emptyList(), "");
+
+    private static final ItemStack teleportBow = ItemMaker.createItem(
+            "minecraft:bow",
+            1,
+            config.getString("items.teleport-bow.name"),
+            Collections.emptyList(),
+            ""
+    );
     private static final ItemStack teleportBowArrow = ItemMaker.createItem("minecraft:arrow", 1, "", Collections.emptyList(), "");
-    private static final ItemStack pvpSword = ItemMaker.createItem("minecraft:netherite_sword", 1, "<purple>PVP Sword", Collections.emptyList(), "");
-    private static final ItemStack serverInfo = ItemMaker.createItem("minecraft:book", 1, "<aqua>Server Info <gray>(Hover)", config.getStringList("items.server-info.lore"), "");
+
+    private static ItemStack pvpSword = ItemMaker.createItem(
+            "minecraft:netherite_sword",
+            1,
+            config.getString("items.pvp-sword.name"),
+            Collections.emptyList(),
+            ""
+    );
+
+    private static final ItemStack serverInfo = ItemMaker.createItem(
+            "minecraft:book",
+            1,
+            config.getString("items.server-info.name"),
+            config.getStringList("items.server-info.lore"),
+            ""
+    );
+
+    private static final String visibilityNameShown = config.getString("items.player-visibility.name-shown");
 
     private static final boolean teleportBowEnabled = config.getBoolean("items.teleport-bow.enabled");
     private static final boolean pvpSwordEnabled = config.getBoolean("items.pvp-sword.enabled");
     private static final boolean serverInfoEnabled = config.getBoolean("items.server-info.enabled");
+    private static final boolean playerVisibilityEnabled = config.getBoolean("items.player-visibility.enabled");
 
     private static final Integer teleportBowSlot = config.getInt("items.teleport-bow.slot");
     private static final Integer pvpSwordSlot = config.getInt("items.pvp-sword.slot");
     private static final Integer serverInfoSlot = config.getInt("items.server-info.slot");
+    private static final Integer playerVisibilitySlot = config.getInt("items.player-visibility.slot");
 
     @EventHandler
     public static void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        loadDefaultLobbyLayout(player);
+    }
+
+    public static void loadDefaultLobbyLayout(Player player) {
         Inventory inventory = player.getInventory();
         inventory.clear();
 
@@ -55,11 +85,17 @@ public class LobbyItems implements Listener {
             meta.setUnbreakable(true);
             meta.setEnchantmentGlintOverride(true);
             pvpSword.setItemMeta(meta);
+            pvpSword = PVPSword.tagAsPvpSword(pvpSword);
             inventory.setItem(pvpSwordSlot, pvpSword);
         }
 
         if (serverInfoEnabled) {
             inventory.setItem(serverInfoSlot, serverInfo);
+        }
+
+        if (playerVisibilityEnabled) {
+            player.getInventory().setItem(playerVisibilitySlot, PlayerVisibility.createVisibilityItem(player, false));
+
         }
     }
 
