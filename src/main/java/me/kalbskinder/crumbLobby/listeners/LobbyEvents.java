@@ -202,7 +202,6 @@ public class LobbyEvents implements Listener {
             Location finalLoc = loc.clone();
             Bukkit.getScheduler().runTaskLater(CrumbLobby.getInstance(), () -> {
                 player.teleport(finalLoc);
-                player.getInventory().clear();
                 LobbyItems.loadDefaultLobbyLayout(player);
                 PVPSword.getPVPList().remove(player.getUniqueId());
             }, 2L);

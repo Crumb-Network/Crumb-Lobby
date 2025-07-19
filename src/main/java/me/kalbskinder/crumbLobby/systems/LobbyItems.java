@@ -4,6 +4,7 @@ import me.kalbskinder.crumbLobby.CrumbLobby;
 import me.kalbskinder.crumbLobby.utils.ItemActionHandler;
 import me.kalbskinder.crumbLobby.utils.ItemMaker;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -62,13 +63,17 @@ public class LobbyItems implements Listener {
 
     @EventHandler
     public static void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        loadDefaultLobbyLayout(player);
+        loadDefaultLobbyLayout(event.getPlayer());
     }
 
     public static void loadDefaultLobbyLayout(Player player) {
         Inventory inventory = player.getInventory();
-        inventory.clear();
+
+        // Clear armor
+        player.getInventory().setHelmet(new ItemStack(Material.AIR));
+        player.getInventory().setChestplate(new ItemStack(Material.AIR));
+        player.getInventory().setLeggings(new ItemStack(Material.AIR));
+        player.getInventory().setBoots(new ItemStack(Material.AIR));
 
         if (teleportBowEnabled) {
             ItemMeta meta = teleportBow.getItemMeta();
