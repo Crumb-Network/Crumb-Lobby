@@ -4,12 +4,13 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import me.kalbskinder.crumbLobby.commands.BaseCommand;
 import me.kalbskinder.crumbLobby.commands.SetSpawnCommand;
 import me.kalbskinder.crumbLobby.commands.SpawnCommand;
-import me.kalbskinder.crumbLobby.listeners.LobbyEvents;
-import me.kalbskinder.crumbLobby.listeners.PlayerJoinLeaveEvents;
+import me.kalbskinder.crumbLobby.listeners.*;
+import me.kalbskinder.crumbLobby.systems.LaunchPadManager;
 import me.kalbskinder.crumbLobby.systems.LobbyItems;
 import me.kalbskinder.crumbLobby.systems.PVPSword;
 import me.kalbskinder.crumbLobby.utils.ItemActionHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.kalbskinder.crumbLobby.database.Database;
@@ -40,6 +41,11 @@ public final class CrumbLobby extends JavaPlugin {
         pm.registerEvents(new PlayerJoinLeaveEvents(), this);
         pm.registerEvents(new ItemActionHandler(), this);
         pm.registerEvents(new LobbyItems(), this);
+
+        pm.registerEvents(new BlockBreakListener(), this);
+        pm.registerEvents(new BlockPlaceListener(), this);
+        pm.registerEvents(new InventoryClickListener(), this);
+        pm.registerEvents(new LaunchPadListener(), this);
     }
 
     @Override
@@ -65,6 +71,7 @@ public final class CrumbLobby extends JavaPlugin {
 
         LobbyEvents.reloadGameRules();
         PVPSword.startMonitoring();
+        LaunchPadManager.loadPadsFromDatabase();
     }
 
     @Override

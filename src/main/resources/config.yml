@@ -20,7 +20,7 @@ messages:
 
 items:
   teleport-bow:
-    name: "<green>Teleport Bow"
+    name: "<green>Teleport-Bow"
     enabled: true
     slot: 0
   pvp-sword:
@@ -46,6 +46,9 @@ items:
     lore:
       - "Line 1"
       - "Line 2"
+
+settings:
+  join-fireworks: true
 
 # dropItems, blockBreak, blockPlace and blockInteract will be ignored for player
 # with the permission "crumblobby.admin (default: op)"

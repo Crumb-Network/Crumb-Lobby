@@ -8,13 +8,19 @@ import me.kalbskinder.crumbLobby.systems.PlayerVisibility;
 import me.kalbskinder.crumbLobby.utils.LocationHelper;
 import me.kalbskinder.crumbLobby.utils.TextFormatter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -25,6 +31,8 @@ public class PlayerJoinLeaveEvents implements Listener {
     private static final TextFormatter textFormatter = new TextFormatter();
     private static final MiniMessage mm = MiniMessage.miniMessage();
     private static final CrumbLobby plugin = CrumbLobby.getInstance();
+
+    boolean joinFireworks = config.getBoolean("settings.join-fireworks", true);
 
     boolean welcomeMessageEnabled = config.getBoolean("messages.welcome-message.enabled");
     List<String> welcomeMessage = config.getStringList("messages.welcome-message.content");
@@ -73,7 +81,24 @@ public class PlayerJoinLeaveEvents implements Listener {
             ex.printStackTrace();
         }
 
-        // TODO: Fireworks!
+        if (joinFireworks) {
+            Location loc = player.getLocation();
+            World world = loc.getWorld();
+            if (world != null) {
+                Firework firework = world.spawn(loc, Firework.class);
+
+                FireworkMeta meta = firework.getFireworkMeta();
+                meta.addEffect(FireworkEffect.builder()
+                        .withColor(Color.AQUA)
+                        .withFade(Color.WHITE)
+                        .with(FireworkEffect.Type.BALL_LARGE)
+                        .flicker(true)
+                        .trail(true)
+                        .build());
+                meta.setPower(1);
+                firework.setFireworkMeta(meta);
+            }
+        }
     }
 
     @EventHandler

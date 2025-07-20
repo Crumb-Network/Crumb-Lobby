@@ -18,6 +18,14 @@ public class Database {
             )
         """);
 
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS launchpad (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                location TEXT NOT NULL,
+                plate_type TEXT NOT NULL
+            )
+        """);
+
         statement.close();
     }
 

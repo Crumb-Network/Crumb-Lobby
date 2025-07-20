@@ -7,6 +7,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import me.kalbskinder.crumbLobby.CrumbLobby;
+import me.kalbskinder.crumbLobby.guis.LaunchPadMenu;
 import me.kalbskinder.crumbLobby.listeners.LobbyEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
@@ -67,6 +68,15 @@ public class BaseCommand {
                                     })
                             )
                     )
+            )
+            .then(Commands.literal("launchpads")
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        if (sender instanceof Player player) {
+                            LaunchPadMenu.open(player);
+                        }
+                        return 0;
+                    })
             );
 
     LiteralCommandNode<CommandSourceStack> base = baseCommand.build();

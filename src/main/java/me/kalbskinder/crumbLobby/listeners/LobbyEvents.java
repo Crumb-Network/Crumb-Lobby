@@ -3,6 +3,9 @@ package me.kalbskinder.crumbLobby.listeners;
 import me.kalbskinder.crumbLobby.CrumbLobby;
 import me.kalbskinder.crumbLobby.database.Database;
 import me.kalbskinder.crumbLobby.database.Query;
+import me.kalbskinder.crumbLobby.guis.LaunchPadMenu;
+import me.kalbskinder.crumbLobby.guis.PlateTypeMenu;
+import me.kalbskinder.crumbLobby.systems.LaunchPadManager;
 import me.kalbskinder.crumbLobby.systems.LobbyItems;
 import me.kalbskinder.crumbLobby.systems.PVPSword;
 import me.kalbskinder.crumbLobby.utils.LocationHelper;
@@ -156,7 +159,27 @@ public class LobbyEvents implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getPlayer().hasPermission("crumblobby.admin")) return;
+        Player player = event.getPlayer();
+        if (player.hasPermission("crumblobby.admin")) {
+            if (player.isSneaking() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                Location location = event.getClickedBlock().getLocation();
+                if (!LaunchPadManager.isLaunchPad(location)) return;
+                int id = 0;
+
+                try {
+                    Database database = new Database(CrumbLobby.getInstance().getDataFolder().getAbsolutePath() + "/lobbyDatabase.db");
+                    Query query = new Query(database.getConnection());
+                    id = query.getLaunchpadId(LocationHelper.locationToString(location));
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+                if (id == 0) return;
+                PlateTypeMenu.openMenu(player, id);
+                return;
+            }
+            return;
+        }
         Action a = event.getAction();
         if (a.equals(Action.PHYSICAL) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
             if (!blockInteract) {
