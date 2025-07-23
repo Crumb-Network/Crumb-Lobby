@@ -33,6 +33,7 @@ public class BaseCommand {
                     List.of(
                             "<gold>/clobby <gray>- Shows this message",
                             "<gold>/clobby gamerules <yellow>[gamerule] [true/false] <gray>- Edit gamerules",
+                            "<gold>/clobby launchpads <gray>- Setup a new launchpad",
                             "<gold>/setspawn <gray>- Set the spawn location",
                             "<gold>/spawn <gray>- Teleport to the spawn location"
                     ).forEach(line -> {
