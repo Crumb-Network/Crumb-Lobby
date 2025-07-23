@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class BlockPlaceListener implements Listener {
     @EventHandler
@@ -27,6 +28,9 @@ public class BlockPlaceListener implements Listener {
         ItemStack item = player.getInventory().getItemInMainHand();
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
+
+        String displayName = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
+        if (!displayName.equals("Plate Launchpad")) return;
 
         String location = LocationHelper.locationToString(event.getBlock().getLocation());
 
