@@ -25,7 +25,7 @@ public class BaseCommand {
 
 
     LiteralArgumentBuilder<CommandSourceStack> baseCommand = Commands.literal("clobby")
-            .requires(source -> source.getExecutor().hasPermission("crumblobby.admin"))
+            .requires(source -> source.getExecutor() != null && source.getExecutor().hasPermission("crumblobby.admin"))
             .executes(ctx -> {
                 // List of commands
                 CommandSender sender =  ctx.getSource().getSender();

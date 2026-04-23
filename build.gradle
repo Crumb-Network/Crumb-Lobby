@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.kalbskinder'
-version = '1.0.1'
+version = '1.0.4'
 
 repositories {
     mavenCentral()
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     implementation "net.kyori:adventure-text-serializer-ansi:4.22.0"
     implementation("org.xerial:sqlite-jdbc:3.50.2.0")
 }

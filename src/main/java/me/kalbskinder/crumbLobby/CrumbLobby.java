@@ -30,7 +30,7 @@ public final class CrumbLobby extends JavaPlugin {
         Logger logger = Logger.getLogger("Crumb-Lobby");
         logger.info("-------------------------------");
         logger.info("        CM - Crumb Lobby       ");
-        logger.info("          Version: 1.0.0");
+        logger.info("          Version: 1.0.4");
         logger.info("      Author: Kalbskinder");
         logger.info("--------------------------------");
     }

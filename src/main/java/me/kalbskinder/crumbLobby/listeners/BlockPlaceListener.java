@@ -29,6 +29,7 @@ public class BlockPlaceListener implements Listener {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
 
+        if (meta.displayName() == null) return;
         String displayName = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
         if (!displayName.equals("Plate Launchpad")) return;
 

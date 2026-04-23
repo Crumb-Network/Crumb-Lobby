@@ -13,6 +13,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.GameRules;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -200,15 +201,15 @@ public class LobbyEvents implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.getDrops().clear();
         event.deathMessage(Component.empty());
-        isInstantRespawnEnabled = Boolean.TRUE.equals(event.getPlayer().getWorld().getGameRuleValue(GameRule.DO_IMMEDIATE_RESPAWN));
-        event.getPlayer().getWorld().setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+        isInstantRespawnEnabled = Boolean.TRUE.equals(event.getPlayer().getWorld().getGameRuleValue(GameRules.IMMEDIATE_RESPAWN));
+        event.getPlayer().getWorld().setGameRule(GameRules.IMMEDIATE_RESPAWN, true);
     }
 
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
 
-        player.getWorld().setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, isInstantRespawnEnabled);
+        player.getWorld().setGameRule(GameRules.IMMEDIATE_RESPAWN, isInstantRespawnEnabled);
 
         try {
             Database database = new Database(CrumbLobby.getInstance().getDataFolder().getAbsolutePath() + "/lobbyDatabase.db");

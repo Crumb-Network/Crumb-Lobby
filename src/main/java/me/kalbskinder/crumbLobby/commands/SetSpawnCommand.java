@@ -20,7 +20,7 @@ public class SetSpawnCommand {
     private final CrumbLobby plugin = CrumbLobby.getInstance();
 
     LiteralArgumentBuilder<CommandSourceStack> setSpawnCommand = Commands.literal("setspawn")
-            .requires(source -> source.getExecutor().hasPermission("crumblobby.setspawn"))
+            .requires(source -> source.getExecutor() != null && source.getExecutor().hasPermission("crumblobby.setspawn"))
             .executes(ctx -> {
                 CommandSender sender =  ctx.getSource().getSender();
                 if (sender instanceof Player player) {
