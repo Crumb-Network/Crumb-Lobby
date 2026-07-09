@@ -4,10 +4,10 @@ plugins {
 }
 
 group = 'me.kalbskinder'
-version = '1.0.5'
+version = '1.0.6'
 
-def mcVersion = "26.1"
-def paperVersion = "26.1.2"
+def mcVersion = "26.2"
+def paperVersion = "26.2"
 
 repositories {
     mavenCentral()

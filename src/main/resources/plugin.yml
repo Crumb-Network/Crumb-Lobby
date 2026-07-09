@@ -1,7 +1,7 @@
 name: Crumb-Lobby
-version: '1.0.5'
+version: '1.0.6'
 main: me.kalbskinder.crumbLobby.CrumbLobby
-api-version: '26.1'
+api-version: '26.2'
 description: ""
 author: "Kalbskinder"
 
